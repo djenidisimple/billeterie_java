@@ -2,7 +2,6 @@ package com.formulaire;
 import javax.swing.*;
 import java.awt.*;
 import com.formulaire.*;
-import com.gestion.GestionPlace;
 /**
  *
  * @author Djenidi
@@ -14,12 +13,13 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
      */
     public Home() {
         setTitle("Train Ticket");
+        ImageIcon icon = new ImageIcon(getClass().getResource("/com/icon/icon.png"));
+        setIconImage(icon.getImage());
+        
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(920, 541));
         initComponents();
         loadForm(new Dashboard());
-        GestionPlace place = new GestionPlace();
-        place.insert();
         
         //place.freePlace();
     }
@@ -41,6 +41,8 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
             case "route":
                 ListRoute listRoute = new ListRoute();
                 listRoute.setMonPanelListener(this);
+                com.gestion.ValuePassed.idTrain = 0;
+                com.gestion.ValuePassed.idTrajet = 0;
                 loadForm(listRoute);
                 break;
             case "train":
@@ -53,6 +55,9 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
                 listPlace.setMonPanelListener(this);
                 loadForm(listPlace);
                 //setContentPane(listPlace);
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "OK");
                 break;
         }
     }
@@ -93,47 +98,46 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
 
         menu.setBackground(new java.awt.Color(255, 255, 255));
 
-        jBtnRes.setBackground(new java.awt.Color(255, 255, 255));
+        jBtnRes.setBackground(UIManager.getColor("Button.background"));
         jBtnRes.setForeground(new java.awt.Color(255, 255, 255));
         jBtnRes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/reservation.png"))); // NOI18N
-        jBtnRes.setToolTipText("Dashboard");
+        jBtnRes.setToolTipText("Reservation");
         jBtnRes.setBorder(null);
-        jBtnRes.setContentAreaFilled(false);
         jBtnRes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBtnResMouseClicked(evt);
             }
         });
 
-        jBtnDashboard.setBackground(new java.awt.Color(255, 255, 255));
+        jBtnDashboard.setBackground(UIManager.getColor("Button.background"));
         jBtnDashboard.setForeground(new java.awt.Color(255, 255, 255));
         jBtnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/applications (1).png"))); // NOI18N
         jBtnDashboard.setToolTipText("Dashboard");
         jBtnDashboard.setBorder(null);
         jBtnDashboard.setBorderPainted(false);
-        jBtnDashboard.setContentAreaFilled(false);
-        jBtnDashboard.setFocusPainted(false);
-        jBtnDashboard.setFocusable(false);
         jBtnDashboard.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jBtnDashboard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jBtnDashboardMouseEntered(evt);
+            }
+        });
         jBtnDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnDashboardActionPerformed(evt);
             }
         });
 
-        jButton11.setBackground(new java.awt.Color(255, 255, 255));
+        jButton11.setBackground(UIManager.getColor("Button.background"));
         jButton11.setForeground(new java.awt.Color(255, 255, 255));
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/parametre.png"))); // NOI18N
-        jButton11.setToolTipText("Dashboard");
+        jButton11.setToolTipText("Paramètre");
         jButton11.setBorder(null);
-        jButton11.setContentAreaFilled(false);
 
-        jBtnPass.setBackground(new java.awt.Color(255, 255, 255));
+        jBtnPass.setBackground(UIManager.getColor("Button.background"));
         jBtnPass.setForeground(new java.awt.Color(255, 255, 255));
         jBtnPass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/client.png"))); // NOI18N
-        jBtnPass.setToolTipText("Dashboard");
+        jBtnPass.setToolTipText("Lstes des passagers");
         jBtnPass.setBorder(null);
-        jBtnPass.setContentAreaFilled(false);
         jBtnPass.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBtnPassMouseClicked(evt);
@@ -157,7 +161,7 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
                 .addComponent(jBtnRes, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtnPass, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
@@ -172,12 +176,14 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contents, javax.swing.GroupLayout.DEFAULT_SIZE, 920, Short.MAX_VALUE))
+                .addComponent(contents, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(contents, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(contents, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -206,12 +212,19 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
         //loadForm(new ListRoute());
         ListRoute listRoute = new ListRoute();
         listRoute.setMonPanelListener(this);
+        com.gestion.ValuePassed.idTrain = 0;
+        com.gestion.ValuePassed.idTrajet = 0;
         loadForm(listRoute);
     }//GEN-LAST:event_jBtnResMouseClicked
 
     private void jBtnPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnPassMouseClicked
         loadForm(new ListPassenger());
     }//GEN-LAST:event_jBtnPassMouseClicked
+
+    private void jBtnDashboardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnDashboardMouseEntered
+        jBtnDashboard.setBackground(UIManager.getColor("Button.background"));
+        jBtnDashboard.setForeground(UIManager.getColor("Button.foreground"));
+    }//GEN-LAST:event_jBtnDashboardMouseEntered
 
     /**
      * @param args the command line arguments

@@ -29,7 +29,7 @@ public class GestionPassenger {
     public int insert(Passenger obj) throws Exception
     {
         int lastId = 0;
-        String query = "INSERT INTO Passenger (name, firstName, email, Phone) VALUES('" + obj.getName() + "', '" + obj.getFirstName() + "', '" + obj.getEmail() + "', '" + obj.getDateOfBirth() + "');";
+        String query = "INSERT INTO Passenger (name, firstName, email, Phone) VALUES('" + obj.getName() + "', '" + obj.getFirstName() + "', '" + obj.getEmail() + "', '" + obj.getPhone() + "');";
         int insertion = connexion.executeUpdate(query);
         
         if (insertion > 0) 

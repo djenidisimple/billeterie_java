@@ -26,7 +26,7 @@ public class GestionRoute {
     {
         try 
         {
-            String query = "INSERT INTO Route (trainId ,placeOfDeparture, placeOfArrival, delay, dateLeave, dateArrived) VALUES ('" + route.getId() + "','" + route.getPlaceOfDeparture() + "', '" + route.getPlaceOfArrival() + "', " + route.getDelay() + " , '" + route.getDateLeave() + "', '" + route.getDateArrived() + "')";
+            String query = "INSERT INTO Route (placeOfDeparture, placeOfArrival, delay, dateLeave, dateArrived) VALUES ('" + route.getPlaceOfDeparture() + "', '" + route.getPlaceOfArrival() + "', " + route.getDelay() + " , '" + route.getDateLeave() + "', '" + route.getDateArrived() + "')";
             connexion.executeUpdate(query);
         }
         catch(Exception e)
@@ -43,7 +43,7 @@ public class GestionRoute {
     {
         try
         {
-            String query = "UPDATE Route SET placeOfDeparture = '" + obj.getPlaceOfDeparture() + "', placeOfArrival = '" + obj.getPlaceOfArrival() + "', delay = " + obj.getDelay() + ", dateLeave = '" + obj.getDateLeave() + "', dateArrived = '" + obj.getDateArrived() + "'";
+            String query = "UPDATE Route SET placeOfDeparture = '" + obj.getPlaceOfDeparture() + "', placeOfArrival = '" + obj.getPlaceOfArrival() + "', delay = " + obj.getDelay() + ", dateLeave = '" + obj.getDateLeave() + "', dateArrived = '" + obj.getDateArrived() + "' WHERE routeId = " + obj.getId();
             connexion.executeUpdate(query);
         }
         catch(Exception e)

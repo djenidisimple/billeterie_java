@@ -62,7 +62,7 @@ public class Dashboard extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabelPlace = new javax.swing.JLabel();
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 0));
 

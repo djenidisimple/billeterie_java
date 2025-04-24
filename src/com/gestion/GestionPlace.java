@@ -140,15 +140,14 @@ public class GestionPlace {
     {
         String query = "";
         int i = 1, j = 0, count = Place.get(1) - nbPlace;
-        int nbColunm = (int)(count / 4);
-        String[] alphaNum = { "A", "B", "C", "D" };
-        int classe = 1;
-
         try 
         {
             if (count > 0)
             {
-                while (i < count)
+                int nbColunm = (count >= 4) ? (int)(count / 4) : count;
+                String[] alphaNum = { "A", "B", "C", "D" };
+                int classe = 1;
+                while (i < count + 1)
                 {
                     if ( i % nbColunm == 0 && i > 1) 
                     {
@@ -158,7 +157,7 @@ public class GestionPlace {
                     {
                         classe++;   
                     }
-                    query = "INSERT INTO Place (routeId, classePas, seatNumber, price) VALUES( " + Place.get(0) + "," + classe + "  ,'" + alphaNum[j] + i + "', 10000);";
+                    query = "INSERT INTO Place (routeId, trainId, classePas, seatNumber, price) VALUES( " + Place.get(0) + "," + Place.get(2) + "," + classe + "  ,'" + alphaNum[j] + i + "', 10000);";
                     connexion.executeUpdate(query);
                     i++;
                 }
@@ -173,19 +172,21 @@ public class GestionPlace {
     public ArrayList<ArrayList<Integer>> addPlace() 
     {
         ArrayList<ArrayList<Integer>> value = new ArrayList<>();
-        String query = "SELECT Route.routeId , Train.CapacityTrain as CapaciteTotale FROM Route INNER JOIN Train ON Train.trainId = Route.trainId WHERE Route.IsActive = 1;";
-        int idTrajet = 0, nbPlace = 0;
+        String query = "SELECT Route.routeId , Train.trainId, Train.CapacityTrain as CapaciteTotale FROM trainbyroute INNER JOIN Train ON Train.trainId = trainbyroute.trainId INNER JOIN Route ON Route.routeId = trainbyroute.routeId WHERE Route.IsActive = 1;";
+        int idTrajet = 0, nbPlace = 0, idTrain = 0;
         try
         {
             ResultSet rs = connexion.executeQuery(query);
             while (rs.next()) {
                 idTrajet = (int)rs.getInt("routeId");
                 nbPlace = (int)rs.getInt("CapaciteTotale");
+                idTrain = (int)rs.getInt("trainId");
 
                 // Nouvelle ArrayList à CHAQUE itération
                 ArrayList<Integer> rowData = new ArrayList<>();
                 rowData.add(idTrajet);
                 rowData.add(nbPlace);
+                rowData.add(idTrain);
 
                 value.add(rowData);
             }
@@ -196,49 +197,22 @@ public class GestionPlace {
         }
         return value;
     }
-    public void insertById(int id) 
-    {
-        int nbTotalTrajet = 0,i = 0, nbPlace = 0;
-        String query;
-        query = "SELECT COUNT(RouteID) AS Total FROM Route WHERE routeId = " + id;
-        nbTotalTrajet = countTrain(query, "Total");
-        query = "SELECT COUNT(RouteID) AS Total FROM Place WHERE routeId = " + id;
-        nbPlace = countTrain(query, "Total");
-        if (nbPlace < nbTotalTrajet)
-        {
-            try
-            {
-                while (i < addPlace().size())
-                {
-                    insertAllPlace(addPlace().get(i), nbPlace);
-                    i++;
-                }
-            }
-            catch (Exception e)
-            {
-                System.out.println("Erreur3 : " + e.getMessage());
-            }
-        }
-        else {
-            System.out.println("Enregistrement Deja existant! (fichier controlePlace)");
-        }
-    }
     public void insert()
     {
         int nbTotalTrajet = 0,i = 0, nbPlace = 0;
         String query;
-        query = "SELECT COUNT(routeId) AS Total FROM Route WHERE IsActive = 1;";
+        query = "SELECT SUM(train.CapacityTrain) as Total FROM trainbyroute INNER JOIN Train ON Train.trainId = trainbyroute.trainId WHERE routeId IN (SELECT routeId FROM Route WHERE Route.IsActive = 1);";
         nbTotalTrajet = countTrain(query, "Total");
         query = "SELECT COUNT(routeId) AS Total FROM Place WHERE routeId IN (SELECT routeId FROM Route WHERE IsActive = 1);";
         nbPlace = countTrain(query, "Total");
-        System.out.println(nbTotalTrajet);
-        if (nbPlace < nbTotalTrajet)
+        int diff = Math.abs(nbPlace - nbTotalTrajet);
+        if (diff != 0)
         {
             try
             {
                 while (i < addPlace().size())
                 {
-                    insertAllPlace(addPlace().get(i), nbPlace);
+                    insertAllPlace(addPlace().get(i), getCountById(addPlace().get(i).get(0)));
                     i++;
                 }
             }
@@ -249,6 +223,42 @@ public class GestionPlace {
         }
         else {
             System.out.println("Enregistrement Deja existant (Place deja complet!) ");
+        }
+    }
+    public int getCountById(int id)
+    {
+        int nb = 0;
+        try
+        {
+            String query = "SELECT COUNT(placeId) as nb FROM Place WHERE routeId = " + id;
+            ResultSet rs = connexion.executeQuery(query);
+            while(rs.next())
+            {
+                nb = rs.getInt("nb");
+            }
+        }
+        catch(Exception e)
+        {
+            System.err.println("Erreur : " + e.getMessage());
+        }
+        return nb;
+    }
+    public ResultSet getPlaceById(int route, int train)
+    {
+        String query = "SELECT * FROM place WHERE routeId = " + route + " AND trainId = " + train + ";";
+        try 
+        {
+            return connexion.executeQuery(query);
+        }
+        catch(SQLException er)
+        {
+            System.err.println("Erreur1 : " + er.getMessage());
+            return null;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return null;
         }
     }
 }

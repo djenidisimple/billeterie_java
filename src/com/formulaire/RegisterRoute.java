@@ -10,6 +10,7 @@ import java.time.Duration;
 import java.time.Instant;
 import javax.swing.JSpinner.DateEditor;
 import java.sql.ResultSet;
+import com.gestion.GestionPlace;
 
 /**
  *
@@ -22,9 +23,7 @@ public class RegisterRoute extends javax.swing.JFrame {
      */
     public RegisterRoute() {
         initComponents();
-        trainId.removeAllItems();
         Form form = new Form();
-        trainId.setModel(form.fillComboBox("SELECT nameTrain FROM Train", trainId, "nameTrain"));
         DateEditor formatDateD = new DateEditor(dateOfDeparture, "yyyy-MM-dd HH:mm");
         DateEditor formatDateA = new DateEditor(dateOfArrival, "yyyy-MM-dd HH:mm");
         dateOfDeparture.setEditor(formatDateD);
@@ -33,7 +32,8 @@ public class RegisterRoute extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE); 
-        loadEdit();
+        if(com.gestion.ValuePassed.idTrajet > 0)
+            loadEdit();
     }
 
     /**
@@ -54,8 +54,6 @@ public class RegisterRoute extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        trainId = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
         dateOfDeparture = new com.toedter.calendar.JSpinnerDateEditor();
         dateOfArrival = new com.toedter.calendar.JSpinnerDateEditor();
 
@@ -92,22 +90,13 @@ public class RegisterRoute extends javax.swing.JFrame {
         jLabel5.setText("Heure et Date d'arriver");
 
         jButton1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
-        jButton1.setText("Réserver");
+        jButton1.setText("Enregistrer");
         jButton1.setPreferredSize(new java.awt.Dimension(189, 39));
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
             }
         });
-
-        trainId.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
-        trainId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        trainId.setMaximumSize(new java.awt.Dimension(32767, 22));
-        trainId.setPreferredSize(new java.awt.Dimension(85, 22));
-
-        jLabel6.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Nom du Train");
 
         dateOfDeparture.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
 
@@ -123,51 +112,45 @@ public class RegisterRoute extends javax.swing.JFrame {
                         .addGap(126, 126, 126)
                         .addComponent(title))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
+                        .addGap(50, 50, 50)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
                             .addComponent(arrival, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(departure, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(trainId, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(dateOfDeparture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(dateOfArrival, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(64, Short.MAX_VALUE))
+                            .addComponent(dateOfArrival, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(trainId, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(43, 43, 43)
                 .addComponent(jLabel2)
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
                 .addComponent(departure, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
                 .addGap(12, 12, 12)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
                 .addComponent(arrival, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addGap(12, 12, 12)
-                .addComponent(dateOfDeparture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(dateOfDeparture, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dateOfArrival, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(12, 12, 12)
+                .addComponent(dateOfArrival, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addGap(37, 37, 37))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -189,7 +172,6 @@ public class RegisterRoute extends javax.swing.JFrame {
         Date dateArrival = (Date) dateOfArrival.getValue();
         Timestamp dateD = new Timestamp(dateDeparture.getTime());
         Timestamp dateA = new Timestamp(dateArrival.getTime());
-        String valueSelected = (String) trainId.getSelectedItem();
         
         // Convertir Timestamp en Instant
         Instant start = dateD.toInstant();
@@ -204,24 +186,21 @@ public class RegisterRoute extends javax.swing.JFrame {
         
         GestionTrain train = new GestionTrain();
         
-        
-        if(Form.Route(train.getIdByName(valueSelected), departure.getText(), arrival.getText(), dateD, dateA) == 0 && (days > 0 || hours > 0 || minutes > 0))
+        if(Form.Route(departure.getText(), arrival.getText(), dateD, dateA) == 0 && (days > 0 || hours > 0 || minutes > 0))
         {
-            Route route = new Route(0, departure.getText(), arrival.getText(), 0, 0, dateA, dateD);
+            Route route = new Route(com.gestion.ValuePassed.idTrajet, departure.getText(), arrival.getText(), 0, 0, dateA, dateD);
             GestionRoute routeG = new GestionRoute();
             if(com.gestion.ValuePassed.idTrajet > 0)
-            {
-                int id = (int)train.getIdByName(valueSelected);
- 
+            {               
                 routeG.update(route);
                 JOptionPane.showMessageDialog(null, "Modification reussite!");
             }
             else 
             {
-                int id = (int)train.getIdByName(valueSelected);
-            
                 routeG.insert(route);
                 JOptionPane.showMessageDialog(null, "Enregistrement reussite!");
+                GestionPlace gestPlace = new GestionPlace();
+                gestPlace.insert();
             }
         }
         else if (days <= 0 || hours <= 0 || minutes <= 0)
@@ -300,9 +279,7 @@ public class RegisterRoute extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel title;
-    private javax.swing.JComboBox<String> trainId;
     // End of variables declaration//GEN-END:variables
 }

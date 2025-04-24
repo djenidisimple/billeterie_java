@@ -22,10 +22,17 @@ public class GestionTrain {
         }
     }
     
-    public void insert(Train obj) throws Exception
+    public int insert(Train obj) throws Exception
     {
         String query = "INSERT INTO Train (NameTrain, CapacityTrain) VALUES ('" + obj.getName() + "', " + obj.getCapacity() + " )";
-        connexion.executeUpdate(query);
+        int insertion = connexion.executeUpdate(query), lastId = 0;
+        if(insertion > 0) 
+        {
+            ResultSet key = connexion.stat.getGeneratedKeys();
+            while(key.next())
+                lastId = key.getInt(1);
+        }
+        return lastId;
     }
     
     public void update(Train obj) throws Exception
@@ -43,6 +50,12 @@ public class GestionTrain {
     public ResultSet viewAll() throws Exception
     {
         String query = "SELECT * FROM Train;";
+        return connexion.executeQuery(query);
+    }
+    
+    public ResultSet viewById(int id) throws Exception
+    {
+        String query = "SELECT Train.trainId, Train.nameTrain, Train.CapacityTrain, ( SELECT COUNT(*) FROM Place WHERE Place.trainId = Train.trainId AND Place.EstDisponible = 0 ) as occuper FROM trainbyroute INNER JOIN Train ON Train.trainId = trainbyroute.trainId WHERE routeId = " + id + ";";
         return connexion.executeQuery(query);
     }
     
@@ -105,6 +118,19 @@ public class GestionTrain {
         try
         {
            String query = "SELECT COUNT(*) AS nb FROM Train";
+           ResultSet rs = connexion.executeQuery(query);
+           return (rs.next()) ? rs.getInt("nb") : 0;
+        }
+        catch(Exception e)
+        {
+            return -1;
+        }
+    }
+    public int countAllById(int id)
+    {
+        try
+        {
+           String query = "SELECT COUNT(*) AS nb FROM TrainByRoute WHERE routeId = " + id;
            ResultSet rs = connexion.executeQuery(query);
            return (rs.next()) ? rs.getInt("nb") : 0;
         }

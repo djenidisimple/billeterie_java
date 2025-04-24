@@ -44,9 +44,9 @@ public class Form {
             return (name.length() == 0) ? -2 : -1 ;
         }
     }
-    public static int Route(int trainId, String departure, String arrival, Timestamp dateDeparture, Timestamp dateArrival) 
+    public static int Route(String departure, String arrival, Timestamp dateDeparture, Timestamp dateArrival) 
     {
-        if (trainId > 0 && departure.length() > 0 && arrival.length() > 0 && dateDeparture != null && dateArrival != null) 
+        if (departure.length() > 0 && arrival.length() > 0 && dateDeparture != null && dateArrival != null) 
         {
             return 0;
         }

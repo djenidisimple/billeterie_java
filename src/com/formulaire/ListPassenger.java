@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -45,7 +46,28 @@ public class ListPassenger extends javax.swing.JPanel {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        jTable1.setModel(new DefaultTableModel(enreg, titre));
+        DefaultTableModel model = new DefaultTableModel(enreg, titre) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Toutes les cellules sont non modifiables
+            }
+        };
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.getTableHeader().setResizingAllowed(false);
+        jTable1.setModel(model);
+        
+        jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable1.getColumnModel().getColumn(0).setWidth(0);
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Appliquer ce renderer à toutes les colonnes
+        for (int i = 0; i < jTable1.getColumnCount(); i++) {
+            jTable1.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        
         jScrollPane1.setViewportView(jTable1);
     }
     
@@ -64,7 +86,7 @@ public class ListPassenger extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel5.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -83,6 +105,10 @@ public class ListPassenger extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setFocusable(false);
+        jTable1.setRowHeight(30);
+        jTable1.setSelectionBackground(new java.awt.Color(0, 102, 255));
+        jTable1.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -103,8 +129,8 @@ public class ListPassenger extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(27, 27, 27)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(28, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 803, Short.MAX_VALUE)
+                    .addGap(28, 28, 28)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

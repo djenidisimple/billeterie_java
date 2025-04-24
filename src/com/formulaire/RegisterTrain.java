@@ -2,10 +2,11 @@ package com.formulaire;
 import com.formulaire.form.Form;
 import javax.swing.JOptionPane;
 import com.classes.Train;
-import com.gestion.GestionRoute;
 import com.gestion.GestionTrain;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.gestion.GestionTrainByRoute;
+import com.classes.TrainByRoute;
+import com.gestion.GestionPlace;
 /**
  *
  * @author Djenidi
@@ -20,7 +21,8 @@ public class RegisterTrain extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE); 
-        loadEdit();
+        if(com.gestion.ValuePassed.idTrain > 0)
+            loadEdit();
     }
 
     /**
@@ -63,7 +65,7 @@ public class RegisterTrain extends javax.swing.JFrame {
         jLabel3.setText("Capacité");
 
         btnValid.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
-        btnValid.setText("Réserver");
+        btnValid.setText("Enregistrer");
         btnValid.setPreferredSize(new java.awt.Dimension(189, 39));
         btnValid.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -157,7 +159,7 @@ public class RegisterTrain extends javax.swing.JFrame {
         int value = Form.Train(name.getText(), capacity.getText());
         if(value == 0) 
         {
-            Train train = new Train(0, name.getText(), Integer.parseInt(capacity.getText()));
+            Train train = new Train(com.gestion.ValuePassed.idTrain, name.getText(), Integer.parseInt(capacity.getText()));
             try 
             {
                 GestionTrain trainRecord = new GestionTrain();
@@ -168,7 +170,13 @@ public class RegisterTrain extends javax.swing.JFrame {
                 }
                 else 
                 {
-                    trainRecord.insert(train);
+                    int id = trainRecord.insert(train);
+                    TrainByRoute tBR = new TrainByRoute(0, com.gestion.ValuePassed.idTrajet, id);
+                    GestionTrainByRoute gestTBR = new GestionTrainByRoute();
+                    gestTBR.insert(tBR);
+                    GestionPlace place = new GestionPlace();
+                    place.insert();
+                    
                     JOptionPane.showMessageDialog(null, "Enregistrement reussit!", "", JOptionPane.INFORMATION_MESSAGE);
                     
                 }

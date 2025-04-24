@@ -6,6 +6,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -29,25 +31,48 @@ public class ListTrain extends javax.swing.JPanel {
     }
     
     public void loadTable() {
-        String titre[] = {"id", "Nom", "Capacité"};
+        String titre[] = {"id", "Nom du Train", "Capacité Total", "Nombre de Place Occuper"};
         Object enreg[][] = new Object[1][1];
 
         try {
             GestionTrain gestTrain = new GestionTrain();
-            int nbr = gestTrain.countAll();
+            int nbr = gestTrain.countAllById(com.gestion.ValuePassed.idTrajet);
             enreg = new Object[nbr][titre.length];
-            ResultSet rs1 = gestTrain.viewAll();
+            ResultSet rs1 = gestTrain.viewById(com.gestion.ValuePassed.idTrajet);
             int i = 0;
             while (rs1.next()) {
                 enreg[i][0] = (Object) rs1.getString("trainId");
                 enreg[i][1] = (Object) rs1.getString("nameTrain");
                 enreg[i][2] = (Object) rs1.getString("capacityTrain");
+                enreg[i][3] = (Object) rs1.getString("occuper");
                 i++;
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        jTable4.setModel(new DefaultTableModel(enreg, titre));
+        DefaultTableModel model = new DefaultTableModel(enreg, titre) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Toutes les cellules sont non modifiables
+            }
+        };
+        jTable4.getTableHeader().setReorderingAllowed(false);
+        jTable4.getTableHeader().setResizingAllowed(false);
+        jTable4.setModel(model);
+        
+        jTable4.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable4.getColumnModel().getColumn(0).setMaxWidth(0);
+        jTable4.getColumnModel().getColumn(0).setWidth(0);
+        
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Appliquer ce renderer à toutes les colonnes
+        for (int i = 0; i < jTable4.getColumnCount(); i++) {
+            jTable4.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        
         jScrollPane4.setViewportView(jTable4);
         com.gestion.ValuePassed.idTrain = 0;
     }
@@ -65,8 +90,9 @@ public class ListTrain extends javax.swing.JPanel {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         prev = new javax.swing.JButton();
+        reset = new javax.swing.JButton();
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBackground(new java.awt.Color(204, 204, 204));
         jPanel6.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel5.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
@@ -127,17 +153,19 @@ public class ListTrain extends javax.swing.JPanel {
             }
         });
 
+        jTable4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "id", "Nom", "Capacité", "Title 4"
+
             }
         ));
+        jTable4.setFocusable(false);
+        jTable4.setRowHeight(30);
+        jTable4.setSelectionBackground(new java.awt.Color(0, 102, 255));
+        jTable4.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jTable4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableMouseClicked(evt);
@@ -155,6 +183,21 @@ public class ListTrain extends javax.swing.JPanel {
         prev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
+            }
+        });
+
+        reset.setBackground(new java.awt.Color(0, 0, 0));
+        reset.setForeground(new java.awt.Color(255, 255, 255));
+        reset.setText("Reinitialiser");
+        reset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                resetMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                resetMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                resetMouseExited(evt);
             }
         });
 
@@ -176,6 +219,8 @@ public class ListTrain extends javax.swing.JPanel {
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(reset)
+                                .addGap(32, 32, 32)
                                 .addComponent(prev, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(34, 34, 34)
                                 .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,11 +233,13 @@ public class ListTrain extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jBtnAdd4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(prev, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -225,12 +272,11 @@ public class ListTrain extends javax.swing.JPanel {
     }//GEN-LAST:event_jTableMouseClicked
 
     private void jBtnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnAddMouseClicked
-        if(evt.getSource() == jBtnAdd) {
+        if(evt.getSource() == jBtnAdd4) {
             // Créer et afficher le nouveau formulaire
             RegisterTrain form = new RegisterTrain();
             form.setVisible(true);
         }
-        loadTable();
     }//GEN-LAST:event_jBtnAddMouseClicked
 
     private void jBtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEditActionPerformed
@@ -238,7 +284,7 @@ public class ListTrain extends javax.swing.JPanel {
     }//GEN-LAST:event_jBtnEditActionPerformed
 
     private void jBtnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnEditMouseClicked
-        if(evt.getSource() == jBtnEdit) {
+        if(evt.getSource() == jBtnEdit4) {
             if(id.compareTo("0") != 0)
             {
                 com.gestion.ValuePassed.idTrain = Integer.parseInt(id);
@@ -277,6 +323,7 @@ public class ListTrain extends javax.swing.JPanel {
                     int idStringToInt = Integer.parseInt(id);
                     train.delete(idStringToInt);
                     JOptionPane.showMessageDialog(this, "Suppression reussite id = " + idStringToInt);
+                    loadTable();
                     break;
                     case JOptionPane.NO_OPTION:
                     JOptionPane.showMessageDialog(this, "Suppression Annuler!");
@@ -334,52 +381,30 @@ public class ListTrain extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_prevMouseClicked
 
+    private void resetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseClicked
+        loadTable();
+        com.gestion.ValuePassed.idTrain = 0;
+    }//GEN-LAST:event_resetMouseClicked
+
+    private void resetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resetMouseEntered
+
+    private void resetMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resetMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnAdd;
-    private javax.swing.JButton jBtnAdd1;
-    private javax.swing.JButton jBtnAdd2;
-    private javax.swing.JButton jBtnAdd3;
     private javax.swing.JButton jBtnAdd4;
-    private javax.swing.JButton jBtnDelete;
-    private javax.swing.JButton jBtnDelete1;
-    private javax.swing.JButton jBtnDelete2;
-    private javax.swing.JButton jBtnDelete3;
     private javax.swing.JButton jBtnDelete4;
-    private javax.swing.JButton jBtnEdit;
-    private javax.swing.JButton jBtnEdit1;
-    private javax.swing.JButton jBtnEdit2;
-    private javax.swing.JButton jBtnEdit3;
     private javax.swing.JButton jBtnEdit4;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JButton next;
     private javax.swing.JButton prev;
+    private javax.swing.JButton reset;
     // End of variables declaration//GEN-END:variables
 }

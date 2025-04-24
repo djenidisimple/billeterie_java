@@ -14,7 +14,6 @@ public class Route {
     private int delay;
     private Timestamp dateArrived;
     private Timestamp dateLeave;
-    private int trainId;
         
     public Route(int id, String placeOfDeparture, String placeOfArrival, int duration, int delay, Timestamp dateArrived, Timestamp dateLeave)
     {
@@ -65,14 +64,6 @@ public class Route {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getTrainId() {
-        return trainId;
-    }
-
-    public void setTrainId(int trainId) {
-        this.trainId = trainId;
     }
 
     public Timestamp getDateArrived() {
