@@ -1,9 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.formulaire;
-
+import com.formulaire.form.Form;
+import javax.swing.JOptionPane;
+import com.classes.Train;
+import com.gestion.GestionRoute;
+import com.gestion.GestionTrain;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author Djenidi
@@ -15,6 +17,10 @@ public class RegisterTrain extends javax.swing.JFrame {
      */
     public RegisterTrain() {
         initComponents();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE); 
+        loadEdit();
     }
 
     /**
@@ -26,21 +32,157 @@ public class RegisterTrain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        title = new javax.swing.JLabel();
+        name = new javax.swing.JTextField();
+        capacity = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        btnValid = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(8, 103, 136));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(8, 103, 136), 1, true));
+        jPanel1.setPreferredSize(new java.awt.Dimension(379, 462));
+
+        title.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        title.setForeground(new java.awt.Color(255, 255, 255));
+        title.setText("Ajout de Train");
+
+        name.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+
+        capacity.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Nom");
+
+        jLabel3.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Capacité");
+
+        btnValid.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        btnValid.setText("Réserver");
+        btnValid.setPreferredSize(new java.awt.Dimension(189, 39));
+        btnValid.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnValidMouseClicked(evt);
+            }
+        });
+        btnValid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnValidActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(title))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(capacity, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(102, 102, 102)
+                        .addComponent(btnValid, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(67, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(title)
+                .addGap(63, 63, 63)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(capacity, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addComponent(btnValid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnValidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnValidActionPerformed
+    
+    private void loadEdit()
+    {
+        title.setText("Edition de Trajet");
+        GestionTrain route = new GestionTrain();
+        try
+        {
+            ResultSet rs = route.getNameById(com.gestion.ValuePassed.idTrain);
+            while(rs.next())
+            {
+                name.setText(rs.getString("nameTrain"));
+                capacity.setText(rs.getInt("CapacityTrain") + "");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("Erreur : " + e.getMessage());
+        }
+    }
+    
+    private void btnValidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnValidMouseClicked
+        int value = Form.Train(name.getText(), capacity.getText());
+        if(value == 0) 
+        {
+            Train train = new Train(0, name.getText(), Integer.parseInt(capacity.getText()));
+            try 
+            {
+                GestionTrain trainRecord = new GestionTrain();
+                if(com.gestion.ValuePassed.idTrain > 0)
+                {
+                    trainRecord.update(train);
+                    JOptionPane.showMessageDialog(null, "Modifiaction reussit!", "", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else 
+                {
+                    trainRecord.insert(train);
+                    JOptionPane.showMessageDialog(null, "Enregistrement reussit!", "", JOptionPane.INFORMATION_MESSAGE);
+                    
+                }
+            }
+            catch(Exception e)
+            {
+              JOptionPane.showMessageDialog(null, "Erreur : " + e.getMessage(), "", JOptionPane.INFORMATION_MESSAGE);   
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Veuilliez remplir tous les champs!", "", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnValidMouseClicked
 
     /**
      * @param args the command line arguments
@@ -78,5 +220,12 @@ public class RegisterTrain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnValid;
+    private javax.swing.JTextField capacity;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField name;
+    private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

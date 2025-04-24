@@ -1,5 +1,5 @@
 package com.classes;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 /**
  *
@@ -11,16 +11,15 @@ public class Passenger {
     private String firstName;
     private String email;
     private String phone;
-    private LocalDateTime dateOfBirth;
+    private Timestamp dateOfBirth;
     
-    public Passenger(int id, String name, String firstName, String email, String phone, LocalDateTime date)
+    public Passenger(int id, String name, String firstName, String email, String phone)
     {
         this.id = id;
         this.name = name;
         this.firstName = firstName;
         this.email = email;
         this.phone = phone;
-        this.dateOfBirth = date;
     }
 
     public String getName() {
@@ -39,7 +38,7 @@ public class Passenger {
         return phone;
     }
 
-    public LocalDateTime getDateOfBirth() {
+    public Timestamp getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -59,7 +58,7 @@ public class Passenger {
         this.phone = phone;
     }
 
-    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+    public void setDateOfBirth(Timestamp dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

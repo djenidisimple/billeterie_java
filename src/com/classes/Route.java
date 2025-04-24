@@ -1,5 +1,7 @@
 package com.classes;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author Djenidi
@@ -8,11 +10,23 @@ public class Route {
     private int id;
     private String placeOfDeparture;
     private String placeOfArrival;
-    private String duration;
-    private String delay;
-    private String dateArrived;
-    private String dateLeave;
-
+    private int duration;
+    private int delay;
+    private Timestamp dateArrived;
+    private Timestamp dateLeave;
+    private int trainId;
+        
+    public Route(int id, String placeOfDeparture, String placeOfArrival, int duration, int delay, Timestamp dateArrived, Timestamp dateLeave)
+    {
+        this.id = id;
+        this.placeOfDeparture = placeOfDeparture;
+        this.placeOfArrival = placeOfArrival;
+        this.duration = duration;
+        this.delay = delay;
+        this.dateLeave = dateLeave;
+        this.dateArrived = dateArrived;
+    }
+    
     public String getPlaceOfDeparture() {
         return placeOfDeparture;
     }
@@ -21,20 +35,12 @@ public class Route {
         return placeOfArrival;
     }
 
-    public String getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public String getDelay() {
+    public int getDelay() {
         return delay;
-    }
-
-    public String getDateArrived() {
-        return dateArrived;
-    }
-
-    public String getDateLeave() {
-        return dateLeave;
     }
 
     public void setPlaceOfDeparture(String placeOfDeparture) {
@@ -45,20 +51,12 @@ public class Route {
         this.placeOfArrival = placeOfArrival;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
-    public void setDelay(String delay) {
+    public void setDelay(int delay) {
         this.delay = delay;
-    }
-
-    public void setDateArrived(String dateArrived) {
-        this.dateArrived = dateArrived;
-    }
-
-    public void setDateLeave(String dateLeave) {
-        this.dateLeave = dateLeave;
     }
 
     public int getId() {
@@ -67,5 +65,29 @@ public class Route {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getTrainId() {
+        return trainId;
+    }
+
+    public void setTrainId(int trainId) {
+        this.trainId = trainId;
+    }
+
+    public Timestamp getDateArrived() {
+        return dateArrived;
+    }
+
+    public Timestamp getDateLeave() {
+        return dateLeave;
+    }
+
+    public void setDateArrived(Timestamp dateArrived) {
+        this.dateArrived = dateArrived;
+    }
+
+    public void setDateLeave(Timestamp dateLeave) {
+        this.dateLeave = dateLeave;
     }
 }

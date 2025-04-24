@@ -10,9 +10,16 @@ import java.sql.ResultSet;
 public class GestionTrain {
     private ConnexionBase connexion;
     
-    public GestionTrain() throws Exception
+    public GestionTrain()
     {
-        connexion = new ConnexionBase();
+        try 
+        {
+            connexion = new ConnexionBase();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Probleme de connexion!");
+        }
     }
     
     public void insert(Train obj) throws Exception
@@ -37,5 +44,73 @@ public class GestionTrain {
     {
         String query = "SELECT * FROM Train;";
         return connexion.executeQuery(query);
+    }
+    
+    public int exist(String name)
+    {
+        try 
+        {
+            String query = "SELECT COUNT(trainId) as nb FROM Train WHERE nameTrain = '" + name + "'";
+            ResultSet rs = connexion.executeQuery(query);
+            return (rs.next()) ? rs.getInt("nb") : 0;
+        }
+        catch (Exception e) 
+        {
+            return -1;
+        }
+    }
+    public int getIdByName(String name)
+    {
+        try
+        {
+           String query = "SELECT trainId FROM Train WHERE nameTrain = '" + name + "'";
+           ResultSet rs = connexion.executeQuery(query);
+           return (rs.next()) ? rs.getInt("trainId") : 0;
+        }
+        catch(Exception e)
+        {
+            return -1;
+        }
+    }
+    
+    public String getIdByNames(int id)
+    {
+        try
+        {
+           String query = "SELECT * FROM Train WHERE trainId = " + id + "";
+           ResultSet rs = connexion.executeQuery(query);
+           return (rs.next()) ? rs.getString("nameTrain") : "";
+        }
+        catch(Exception e)
+        {
+            return "";
+        }
+    }
+    
+    public ResultSet getNameById(int id)
+    {
+        try
+        {
+           String query = "SELECT * FROM Train WHERE trainId = " + id + "";
+           return connexion.executeQuery(query);
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+    }
+    
+    public int countAll()
+    {
+        try
+        {
+           String query = "SELECT COUNT(*) AS nb FROM Train";
+           ResultSet rs = connexion.executeQuery(query);
+           return (rs.next()) ? rs.getInt("nb") : 0;
+        }
+        catch(Exception e)
+        {
+            return -1;
+        }
     }
 }

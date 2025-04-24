@@ -1,4 +1,5 @@
 package com.classes;
+import java.sql.Timestamp;
 
 /**
  *
@@ -6,16 +7,26 @@ package com.classes;
  */
 public class Ticket {
     private String reference;
-    private String route;
+    private int route;
     private String qrCode;
-    private String namePass;
-    private String seatNumber;
+    private int namePass;
+    private int seatNumber;
+    private Timestamp dateDeparture;
 
+    public Ticket(String reference, int route, String qrcode, int namePass, int seatNumber)
+    {
+        this.reference = reference;
+        this.route = route;
+        this.qrCode = qrcode;
+        this.namePass = namePass;
+        this.seatNumber = seatNumber;
+    }
+    
     public String getReference() {
         return reference;
     }
 
-    public String getRoute() {
+    public int getRoute() {
         return route;
     }
 
@@ -23,11 +34,11 @@ public class Ticket {
         return qrCode;
     }
 
-    public String getNamePass() {
+    public int getNamePass() {
         return namePass;
     }
 
-    public String getSeatNumber() {
+    public int getSeatNumber() {
         return seatNumber;
     }
 
@@ -35,7 +46,7 @@ public class Ticket {
         this.reference = reference;
     }
 
-    public void setRoute(String route) {
+    public void setRoute(int route) {
         this.route = route;
     }
 
@@ -43,11 +54,19 @@ public class Ticket {
         this.qrCode = qrCode;
     }
 
-    public void setNamePass(String namePass) {
+    public void setNamePass(int namePass) {
         this.namePass = namePass;
     }
 
-    public void setSeatNumber(String seatNumber) {
+    public void setSeatNumber(int seatNumber) {
         this.seatNumber = seatNumber;
+    }
+
+    public Timestamp getDateDeparture() {
+        return dateDeparture;
+    }
+
+    public void setDateDeparture(Timestamp dateDeparture) {
+        this.dateDeparture = dateDeparture;
     }
 }

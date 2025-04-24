@@ -13,10 +13,17 @@ public class ConnexionBase {
     public Connection con;
     public Statement stat;
     
-    public ConnexionBase() throws Exception {
-        Class.forName("org.gjt.mm.mysql.Driver");//charger le pilote jdbc
-        con = DriverManager.getConnection(Constant.URL, Constant.USER, Constant.PASSWD);
-        stat = con.createStatement();//lanceur de requette
+    public ConnexionBase() {
+        //Class.forName("org.gjt.mm.mysql.Driver");//charger le pilote jdbc
+        try
+        {
+            con = DriverManager.getConnection(Constant.URL, Constant.USER, Constant.PASSWD);
+            stat = con.createStatement();//lanceur de requette
+        }
+        catch(Exception e)
+        {
+            System.out.println("Erreur : " + e.getMessage());
+        }
     }
 
     //select
@@ -28,7 +35,7 @@ public class ConnexionBase {
     //insertion, update, delete
     public int executeUpdate (String query) throws Exception{
         int res=0;
-	res=stat.executeUpdate(query);
+	res=stat.executeUpdate(query, stat.RETURN_GENERATED_KEYS);
 	return(res);
     }
 

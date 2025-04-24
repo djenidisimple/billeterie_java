@@ -1,8 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.formulaire;
+import com.gestion.GestionRoute;
+import com.gestion.GestionTrain;
+import com.formulaire.form.Form;
+import com.classes.Route;
+import javax.swing.JOptionPane;
+import java.util.Date;
+import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.Instant;
+import javax.swing.JSpinner.DateEditor;
+import java.sql.ResultSet;
 
 /**
  *
@@ -15,6 +22,18 @@ public class RegisterRoute extends javax.swing.JFrame {
      */
     public RegisterRoute() {
         initComponents();
+        trainId.removeAllItems();
+        Form form = new Form();
+        trainId.setModel(form.fillComboBox("SELECT nameTrain FROM Train", trainId, "nameTrain"));
+        DateEditor formatDateD = new DateEditor(dateOfDeparture, "yyyy-MM-dd HH:mm");
+        DateEditor formatDateA = new DateEditor(dateOfArrival, "yyyy-MM-dd HH:mm");
+        dateOfDeparture.setEditor(formatDateD);
+        dateOfArrival.setEditor(formatDateA);
+         
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE); 
+        loadEdit();
     }
 
     /**
@@ -27,16 +46,18 @@ public class RegisterRoute extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        name = new javax.swing.JTextField();
-        email = new javax.swing.JTextField();
-        firstName = new javax.swing.JTextField();
-        phone = new javax.swing.JTextField();
+        title = new javax.swing.JLabel();
+        departure = new javax.swing.JTextField();
+        arrival = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        trainId = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        dateOfDeparture = new com.toedter.calendar.JSpinnerDateEditor();
+        dateOfArrival = new com.toedter.calendar.JSpinnerDateEditor();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,19 +65,53 @@ public class RegisterRoute extends javax.swing.JFrame {
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(8, 103, 136), 1, true));
         jPanel1.setPreferredSize(new java.awt.Dimension(379, 462));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Ajout de Trajet");
+        title.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
+        title.setForeground(new java.awt.Color(255, 255, 255));
+        title.setText("Ajout de Trajet");
 
-        jLabel2.setText("Nom");
+        departure.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        departure.setMinimumSize(new java.awt.Dimension(85, 22));
 
-        jLabel3.setText("Prenom");
+        arrival.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        arrival.setMinimumSize(new java.awt.Dimension(85, 22));
 
-        jLabel4.setText("Phone");
+        jLabel2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Gare de départ");
 
-        jLabel5.setText("email");
+        jLabel3.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Gare de d'arriver");
 
+        jLabel4.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Heure et Date de départ");
+
+        jLabel5.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Heure et Date d'arriver");
+
+        jButton1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
         jButton1.setText("Réserver");
         jButton1.setPreferredSize(new java.awt.Dimension(189, 39));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
+        trainId.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        trainId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        trainId.setMaximumSize(new java.awt.Dimension(32767, 22));
+        trainId.setPreferredSize(new java.awt.Dimension(85, 22));
+
+        jLabel6.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Nom du Train");
+
+        dateOfDeparture.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+
+        dateOfArrival.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -65,71 +120,141 @@ public class RegisterRoute extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(126, 126, 126)
+                        .addComponent(title))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(firstName, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addComponent(jLabel1)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                            .addComponent(arrival, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(departure, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(trainId, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateOfDeparture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateOfArrival, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(jLabel1)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel2)
+                .addGap(30, 30, 30)
+                .addComponent(title)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(trainId, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2)
+                .addGap(12, 12, 12)
+                .addComponent(departure, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addGap(12, 12, 12)
-                .addComponent(firstName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(arrival, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addGap(9, 9, 9)
-                .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
+                .addComponent(dateOfDeparture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dateOfArrival, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(189, 189, 189)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(207, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        Date dateDeparture = (Date) dateOfDeparture.getValue();
+        Date dateArrival = (Date) dateOfArrival.getValue();
+        Timestamp dateD = new Timestamp(dateDeparture.getTime());
+        Timestamp dateA = new Timestamp(dateArrival.getTime());
+        String valueSelected = (String) trainId.getSelectedItem();
+        
+        // Convertir Timestamp en Instant
+        Instant start = dateD.toInstant();
+        Instant end = dateA.toInstant();
+
+        // Calculer la durée
+        Duration duration = Duration.between(start, end);
+        
+        long days = duration.toDays();
+        long hours = duration.toHoursPart();   // Partie heures (0-23)
+        long minutes = duration.toMinutesPart(); // Partie minutes (0-59)
+        
+        GestionTrain train = new GestionTrain();
+        
+        
+        if(Form.Route(train.getIdByName(valueSelected), departure.getText(), arrival.getText(), dateD, dateA) == 0 && (days > 0 || hours > 0 || minutes > 0))
+        {
+            Route route = new Route(0, departure.getText(), arrival.getText(), 0, 0, dateA, dateD);
+            GestionRoute routeG = new GestionRoute();
+            if(com.gestion.ValuePassed.idTrajet > 0)
+            {
+                int id = (int)train.getIdByName(valueSelected);
+ 
+                routeG.update(route);
+                JOptionPane.showMessageDialog(null, "Modification reussite!");
+            }
+            else 
+            {
+                int id = (int)train.getIdByName(valueSelected);
+            
+                routeG.insert(route);
+                JOptionPane.showMessageDialog(null, "Enregistrement reussite!");
+            }
+        }
+        else if (days <= 0 || hours <= 0 || minutes <= 0)
+        {
+            JOptionPane.showMessageDialog(this, "La date de départ doit être inférieur à la date d'arriver!");
+        }
+        else 
+        {
+            JOptionPane.showMessageDialog(this, "Veuilliez remplir tous les champs correctements!");
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
+    
+    private void loadEdit()
+    {
+        title.setText("Modification de Trajet");
+        GestionRoute route = new GestionRoute();
+        try
+        {
+            ResultSet rs = route.viewByIdl(com.gestion.ValuePassed.idTrajet);
+            while(rs.next())
+            {
+                departure.setText(rs.getString("placeOfDeparture"));
+                arrival.setText(rs.getString("placeOfArrival"));
+                dateOfDeparture.setValue(rs.getTimestamp("dateLeave"));
+                dateOfArrival.setValue(rs.getTimestamp("dateArrived"));
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("Erreur : " + e.getMessage());
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -166,16 +291,18 @@ public class RegisterRoute extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField email;
-    private javax.swing.JTextField firstName;
+    private javax.swing.JTextField arrival;
+    private com.toedter.calendar.JSpinnerDateEditor dateOfArrival;
+    private com.toedter.calendar.JSpinnerDateEditor dateOfDeparture;
+    private javax.swing.JTextField departure;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField name;
-    private javax.swing.JTextField phone;
+    private javax.swing.JLabel title;
+    private javax.swing.JComboBox<String> trainId;
     // End of variables declaration//GEN-END:variables
 }
