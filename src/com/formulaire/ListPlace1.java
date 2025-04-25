@@ -58,13 +58,13 @@ public class ListPlace1 extends javax.swing.JPanel {
         
         int line = 0;
         
-        int i = 45, counter = 0, j = 10;
+        int i = 20, counter = 0, j = 10;
         int spacingX = 60, spacingY = 60;
         try
         {
             while (row.next())
             {
-                RoundedPanel itemPanel = new RoundedPanel();
+                RoundedPanel itemPanel = new RoundedPanel(20);
                 itemPanel.setPreferredSize(new Dimension(56, 49));
                 itemPanel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
                 itemPanel.setOpaque(false);
@@ -90,8 +90,8 @@ public class ListPlace1 extends javax.swing.JPanel {
 
                 if (line % 10 == 0 && line != 0) { // 4 panels par ligne
                     j += spacingY; // Nouvelle ligne
-                    i = 45; // Réinitialiser X
-                    //contentsPlace2.setPreferredSize(new Dimension(100, j + spacingY));
+                    i = 20; // Réinitialiser X
+                    contentsPlace2.setPreferredSize(new Dimension(100, j + spacingY));
                 }
 
 
@@ -206,14 +206,14 @@ public class ListPlace1 extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jBtnRes = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jBtnExport = new javax.swing.JButton();
         nameTrain = new javax.swing.JLabel();
         nbPass = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jBtnExport = new javax.swing.JButton();
         prev = new javax.swing.JButton();
+        jBtnRes = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         labelPlace = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -221,25 +221,26 @@ public class ListPlace1 extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(java.awt.SystemColor.scrollbar);
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setText("Annuler");
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jBtnRes.setText("Réserver");
-        jBtnRes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBtnResMouseClicked(evt);
-            }
-        });
+        nameTrain.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        nameTrain.setForeground(new java.awt.Color(0, 0, 0));
+        nameTrain.setText("Tom");
 
-        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+        nbPass.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        nbPass.setForeground(new java.awt.Color(0, 0, 0));
+        nbPass.setText("50");
 
-        jBtnExport.setBackground(new java.awt.Color(51, 51, 51));
-        jBtnExport.setForeground(new java.awt.Color(255, 255, 255));
-        jBtnExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/export.png"))); // NOI18N
-        jBtnExport.setText("Exporter");
-        jBtnExport.setPreferredSize(new java.awt.Dimension(95, 34));
+        jLabel4.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Passagers");
+
+        jBtnExport.setBackground(new java.awt.Color(255, 255, 255));
+        jBtnExport.setForeground(getForeground());
+        jBtnExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/exporter-le-fichier.png"))); // NOI18N
         jBtnExport.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBtnExportMouseClicked(evt);
@@ -251,25 +252,27 @@ public class ListPlace1 extends javax.swing.JPanel {
             }
         });
 
-        nameTrain.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
-        nameTrain.setForeground(new java.awt.Color(255, 255, 255));
-        nameTrain.setText("Tom");
-
-        nbPass.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
-        nbPass.setForeground(new java.awt.Color(255, 255, 255));
-        nbPass.setText("50");
-
-        jLabel4.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Passagers");
-
-        prev.setMaximumSize(new java.awt.Dimension(106, 38));
-        prev.setMinimumSize(new java.awt.Dimension(106, 38));
+        prev.setBackground(new java.awt.Color(255, 255, 255));
+        prev.setForeground(getForeground());
+        prev.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/fleche-fine-contour-vers-la-gauche.png"))); // NOI18N
         prev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 prevjButton3ActionPerformed(evt);
             }
         });
+
+        jBtnRes.setBackground(new java.awt.Color(255, 255, 255));
+        jBtnRes.setForeground(getForeground());
+        jBtnRes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/reservation-en-ligne.png"))); // NOI18N
+        jBtnRes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtnResMouseClicked(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(getForeground());
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/annuler.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -282,23 +285,30 @@ public class ListPlace1 extends javax.swing.JPanel {
                 .addComponent(nbPass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addGap(168, 168, 168)
-                .addComponent(prev, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(121, 121, 121)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jBtnExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addComponent(prev, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtnRes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnRes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(prev, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nameTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(nbPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(jBtnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(nameTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(nbPass, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         labelPlace.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
@@ -311,16 +321,17 @@ public class ListPlace1 extends javax.swing.JPanel {
 
         contentsPlace2.setBackground(new java.awt.Color(255, 255, 255));
         contentsPlace2.setAutoscrolls(true);
+        contentsPlace2.setPreferredSize(new java.awt.Dimension(580, 230));
 
         javax.swing.GroupLayout contentsPlace2Layout = new javax.swing.GroupLayout(contentsPlace2);
         contentsPlace2.setLayout(contentsPlace2Layout);
         contentsPlace2Layout.setHorizontalGroup(
             contentsPlace2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 811, Short.MAX_VALUE)
+            .addGap(0, 580, Short.MAX_VALUE)
         );
         contentsPlace2Layout.setVerticalGroup(
             contentsPlace2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
+            .addGap(0, 230, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(contentsPlace2);
@@ -332,21 +343,13 @@ public class ListPlace1 extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(labelPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(jBtnRes, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(69, 69, 69)))
+                        .addComponent(labelPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(38, 38, 38))
         );
         jPanel1Layout.setVerticalGroup(
@@ -354,18 +357,11 @@ public class ListPlace1 extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                .addGap(64, 64, 64)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelPlace)
-                        .addGap(34, 34, 34))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtnRes, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(46, 46, 46))))
+                .addGap(32, 32, 32)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                .addGap(98, 98, 98)
+                .addComponent(labelPlace)
+                .addGap(34, 34, 34))
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);

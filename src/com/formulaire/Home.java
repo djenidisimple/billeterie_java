@@ -75,6 +75,7 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
         jBtnDashboard = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jBtnPass = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         contents = new javax.swing.JPanel();
 
         jMenu1.setText("jMenu1");
@@ -94,13 +95,13 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(java.awt.Color.white);
 
-        jPanel7.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel7.setBackground(java.awt.SystemColor.scrollbar);
 
-        menu.setBackground(new java.awt.Color(255, 255, 255));
+        menu.setBackground(java.awt.SystemColor.control);
 
-        jBtnRes.setBackground(UIManager.getColor("Button.background"));
+        jBtnRes.setBackground(java.awt.SystemColor.control);
         jBtnRes.setForeground(new java.awt.Color(255, 255, 255));
-        jBtnRes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/reservation.png"))); // NOI18N
+        jBtnRes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/booking (3).png"))); // NOI18N
         jBtnRes.setToolTipText("Reservation");
         jBtnRes.setBorder(null);
         jBtnRes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -109,9 +110,9 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
             }
         });
 
-        jBtnDashboard.setBackground(UIManager.getColor("Button.background"));
+        jBtnDashboard.setBackground(java.awt.SystemColor.control);
         jBtnDashboard.setForeground(new java.awt.Color(255, 255, 255));
-        jBtnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/applications (1).png"))); // NOI18N
+        jBtnDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/dashboard (3).png"))); // NOI18N
         jBtnDashboard.setToolTipText("Dashboard");
         jBtnDashboard.setBorder(null);
         jBtnDashboard.setBorderPainted(false);
@@ -120,6 +121,9 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jBtnDashboardMouseEntered(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jBtnDashboardMouseExited(evt);
+            }
         });
         jBtnDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,13 +131,13 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
             }
         });
 
-        jButton11.setBackground(UIManager.getColor("Button.background"));
+        jButton11.setBackground(java.awt.SystemColor.control);
         jButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/parametre.png"))); // NOI18N
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/setting (3).png"))); // NOI18N
         jButton11.setToolTipText("Paramètre");
         jButton11.setBorder(null);
 
-        jBtnPass.setBackground(UIManager.getColor("Button.background"));
+        jBtnPass.setBackground(java.awt.SystemColor.control);
         jBtnPass.setForeground(new java.awt.Color(255, 255, 255));
         jBtnPass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/client.png"))); // NOI18N
         jBtnPass.setToolTipText("Lstes des passagers");
@@ -144,14 +148,23 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
             }
         });
 
+        jButton1.setBackground(java.awt.SystemColor.control);
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/la-personne.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBtnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jBtnRes, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jBtnPass, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(menuLayout.createSequentialGroup()
+                .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnRes, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnPass, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,11 +174,14 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
                 .addComponent(jBtnRes, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtnPass, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
 
+        contents.setBackground(java.awt.SystemColor.scrollbar);
         contents.setForeground(new java.awt.Color(0, 0, 0));
         contents.setLayout(new java.awt.CardLayout());
 
@@ -176,14 +192,12 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contents, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE))
+                .addComponent(contents, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(contents, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(contents, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,9 +236,12 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
     }//GEN-LAST:event_jBtnPassMouseClicked
 
     private void jBtnDashboardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnDashboardMouseEntered
-        jBtnDashboard.setBackground(UIManager.getColor("Button.background"));
-        jBtnDashboard.setForeground(UIManager.getColor("Button.foreground"));
+        //jBtnDashboard.setBackground(UIManager.getColor("info"));
     }//GEN-LAST:event_jBtnDashboardMouseEntered
+
+    private void jBtnDashboardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnDashboardMouseExited
+        //jBtnDashboard.setBackground(UIManager.getColor("accent"));
+    }//GEN-LAST:event_jBtnDashboardMouseExited
 
     /**
      * @param args the command line arguments
@@ -262,6 +279,7 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
     private javax.swing.JButton jBtnDashboard;
     private javax.swing.JButton jBtnPass;
     private javax.swing.JButton jBtnRes;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JMenu jMenu1;

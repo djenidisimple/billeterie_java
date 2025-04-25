@@ -1,5 +1,4 @@
 package com.formulaire;
-import com.gestion.GestionRoute;
 import com.gestion.GestionTrain;
 import com.gestion.PanelEventListener;
 import java.awt.BorderLayout;
@@ -83,75 +82,25 @@ public class ListTrain extends javax.swing.JPanel {
 
         jPanel6 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jBtnDelete4 = new javax.swing.JButton();
-        next = new javax.swing.JButton();
-        jBtnEdit4 = new javax.swing.JButton();
-        jBtnAdd4 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
-        prev = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jBtnAdd4 = new javax.swing.JButton();
+        jBtnEdit4 = new javax.swing.JButton();
+        jBtnDelete4 = new javax.swing.JButton();
         reset = new javax.swing.JButton();
+        next = new javax.swing.JButton();
+        prev = new javax.swing.JButton();
 
-        jPanel6.setBackground(new java.awt.Color(204, 204, 204));
+        setPreferredSize(new java.awt.Dimension(860, 453));
+
+        jPanel6.setBackground(java.awt.SystemColor.scrollbar);
         jPanel6.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel6.setPreferredSize(new java.awt.Dimension(860, 453));
 
         jLabel5.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Train de Fianarantsoa");
-
-        jBtnDelete4.setBackground(new java.awt.Color(0, 0, 0));
-        jBtnDelete4.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
-        jBtnDelete4.setForeground(new java.awt.Color(255, 255, 255));
-        jBtnDelete4.setText("Supprimer");
-        jBtnDelete4.setMaximumSize(new java.awt.Dimension(106, 38));
-        jBtnDelete4.setMinimumSize(new java.awt.Dimension(106, 38));
-        jBtnDelete4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBtnDeleteMouseClicked(evt);
-            }
-        });
-
-        next.setMaximumSize(new java.awt.Dimension(106, 38));
-        next.setMinimumSize(new java.awt.Dimension(106, 38));
-        next.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                nextMouseClicked(evt);
-            }
-        });
-        next.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jBtnEdit4.setBackground(new java.awt.Color(0, 0, 0));
-        jBtnEdit4.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
-        jBtnEdit4.setForeground(new java.awt.Color(255, 255, 255));
-        jBtnEdit4.setText("Modifier");
-        jBtnEdit4.setMaximumSize(new java.awt.Dimension(106, 38));
-        jBtnEdit4.setMinimumSize(new java.awt.Dimension(106, 38));
-        jBtnEdit4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBtnEditMouseClicked(evt);
-            }
-        });
-        jBtnEdit4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnEditActionPerformed(evt);
-            }
-        });
-
-        jBtnAdd4.setBackground(new java.awt.Color(0, 0, 0));
-        jBtnAdd4.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
-        jBtnAdd4.setForeground(new java.awt.Color(255, 255, 255));
-        jBtnAdd4.setText("Ajouter");
-        jBtnAdd4.setMaximumSize(new java.awt.Dimension(106, 38));
-        jBtnAdd4.setMinimumSize(new java.awt.Dimension(106, 38));
-        jBtnAdd4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBtnAddMouseClicked(evt);
-            }
-        });
 
         jTable4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
@@ -173,22 +122,62 @@ public class ListTrain extends javax.swing.JPanel {
         });
         jScrollPane4.setViewportView(jTable4);
 
-        prev.setMaximumSize(new java.awt.Dimension(106, 38));
-        prev.setMinimumSize(new java.awt.Dimension(106, 38));
-        prev.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Train de Fianarantsoa");
+
+        jBtnAdd4.setBackground(new java.awt.Color(255, 255, 255));
+        jBtnAdd4.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        jBtnAdd4.setForeground(getForeground());
+        jBtnAdd4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/icone-plus (1).png"))); // NOI18N
+        jBtnAdd4.setMaximumSize(new java.awt.Dimension(22, 23));
+        jBtnAdd4.setMinimumSize(new java.awt.Dimension(22, 23));
+        jBtnAdd4.setPreferredSize(new java.awt.Dimension(22, 23));
+        jBtnAdd4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                prevMouseClicked(evt);
-            }
-        });
-        prev.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jBtnAddMouseClicked(evt);
             }
         });
 
-        reset.setBackground(new java.awt.Color(0, 0, 0));
-        reset.setForeground(new java.awt.Color(255, 255, 255));
-        reset.setText("Reinitialiser");
+        jBtnEdit4.setBackground(new java.awt.Color(255, 255, 255));
+        jBtnEdit4.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        jBtnEdit4.setForeground(getForeground());
+        jBtnEdit4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/editer.png"))); // NOI18N
+        jBtnEdit4.setMaximumSize(new java.awt.Dimension(22, 23));
+        jBtnEdit4.setMinimumSize(new java.awt.Dimension(22, 23));
+        jBtnEdit4.setPreferredSize(new java.awt.Dimension(22, 23));
+        jBtnEdit4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtnEditMouseClicked(evt);
+            }
+        });
+        jBtnEdit4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEditActionPerformed(evt);
+            }
+        });
+
+        jBtnDelete4.setBackground(new java.awt.Color(255, 255, 255));
+        jBtnDelete4.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        jBtnDelete4.setForeground(getForeground());
+        jBtnDelete4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/supprimer.png"))); // NOI18N
+        jBtnDelete4.setMaximumSize(new java.awt.Dimension(22, 23));
+        jBtnDelete4.setMinimumSize(new java.awt.Dimension(22, 23));
+        jBtnDelete4.setPreferredSize(new java.awt.Dimension(22, 23));
+        jBtnDelete4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtnDeleteMouseClicked(evt);
+            }
+        });
+
+        reset.setBackground(new java.awt.Color(255, 255, 255));
+        reset.setForeground(getForeground());
+        reset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/actualise.png"))); // NOI18N
+        reset.setMaximumSize(new java.awt.Dimension(22, 23));
+        reset.setMinimumSize(new java.awt.Dimension(22, 23));
+        reset.setPreferredSize(new java.awt.Dimension(22, 23));
         reset.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 resetMouseClicked(evt);
@@ -201,6 +190,75 @@ public class ListTrain extends javax.swing.JPanel {
             }
         });
 
+        next.setBackground(new java.awt.Color(255, 255, 255));
+        next.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/angle-de-la-fleche-pointant-vers-la-droite.png"))); // NOI18N
+        next.setMaximumSize(new java.awt.Dimension(22, 23));
+        next.setMinimumSize(new java.awt.Dimension(22, 23));
+        next.setPreferredSize(new java.awt.Dimension(22, 23));
+        next.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nextMouseClicked(evt);
+            }
+        });
+        next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        prev.setBackground(new java.awt.Color(255, 255, 255));
+        prev.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/fleche-fine-contour-vers-la-gauche.png"))); // NOI18N
+        prev.setMaximumSize(new java.awt.Dimension(22, 23));
+        prev.setMinimumSize(new java.awt.Dimension(22, 23));
+        prev.setPreferredSize(new java.awt.Dimension(22, 23));
+        prev.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                prevMouseClicked(evt);
+            }
+        });
+        prev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
+                .addComponent(prev, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtnDelete4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtnEdit4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtnAdd4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jBtnAdd4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtnEdit4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtnDelete4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(prev, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -208,57 +266,36 @@ public class ListTrain extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jBtnDelete4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(jBtnEdit4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 805, Short.MAX_VALUE)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(reset)
-                                .addGap(32, 32, 32)
-                                .addComponent(prev, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
-                                .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jBtnAdd4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(30, 30, 30))))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addGap(30, 30, 30))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jBtnAdd4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(prev, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnDelete4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnEdit4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -399,7 +436,9 @@ public class ListTrain extends javax.swing.JPanel {
     private javax.swing.JButton jBtnAdd4;
     private javax.swing.JButton jBtnDelete4;
     private javax.swing.JButton jBtnEdit4;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable4;

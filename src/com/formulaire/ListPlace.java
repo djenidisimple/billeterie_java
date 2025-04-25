@@ -49,7 +49,7 @@ public class ListPlace extends javax.swing.JFrame {
         {
             while (row.next())
             {
-                RoundedPanel itemPanel = new RoundedPanel();
+                RoundedPanel itemPanel = new RoundedPanel(20);
                 itemPanel.setPreferredSize(new Dimension(56, 49));
                 itemPanel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
                 itemPanel.setOpaque(false);
