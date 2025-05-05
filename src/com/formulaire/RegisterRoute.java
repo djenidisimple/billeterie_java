@@ -3,9 +3,10 @@ import com.gestion.GestionRoute;
 import com.gestion.GestionTrain;
 import com.formulaire.form.Form;
 import com.classes.Route;
-import javax.swing.JOptionPane;
-import java.util.Date;
+import javax.swing.*;
+import java.util.*;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.time.Duration;
 import java.time.Instant;
 import javax.swing.JSpinner.DateEditor;
@@ -34,6 +35,68 @@ public class RegisterRoute extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE); 
         if(com.gestion.ValuePassed.idTrajet > 0)
             loadEdit();
+        
+        departure.setInputVerifier(new InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                JTextField tf = (JTextField) input;
+                String text = tf.getText();
+                if (text.length() <= 1 || !Form.Name(text))
+                {
+                    JOptionPane.showMessageDialog(input, "Le champs doit être rempli correctement sans chiffre ou des caractères spéciaux et doit contenir au moins deux lettres!");
+                    return false;
+                }
+                return true; // valide, on laisse 
+            }
+        });
+        
+        arrival.setInputVerifier(new InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                JTextField tf = (JTextField) input;
+                String text = tf.getText();
+                if (text.length() <= 1 || !Form.Name(text))
+                {
+                    JOptionPane.showMessageDialog(input, "Le champs doit être rempli correctement sans chiffre ou des caractères spéciaux et doit contenir au moins deux lettres!");
+                    return false;
+                }
+                return true; // valide, on laisse 
+            }
+        });
+        
+        dateOfDeparture.setInputVerifier(new InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                JSpinner date = (JSpinner) input;
+                try {
+                    date.commitEdit(); // applique la valeur dans le modèle
+                    Date dateDeparture = (Date) dateOfDeparture.getValue();
+                    Date now = new Date();
+                    JOptionPane.showMessageDialog(input, "Date : " + dateDeparture.before(now));                       
+                    if (dateDeparture.before(now)) {
+                        JOptionPane.showMessageDialog(input, "Date invalide !");                       
+                        return false;
+                    }
+                    return true;
+                } catch (ParseException ex) {
+                    JOptionPane.showMessageDialog(input, "Date invalide !");
+                    return false;
+                }
+            }
+        });
+        
+        dateOfArrival.setInputVerifier(new InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                try {
+                    dateOfArrival.commitEdit(); // applique la valeur dans le modèle
+                    return true;
+                } catch (ParseException ex) {
+                    JOptionPane.showMessageDialog(input, "Date invalide !");
+                    return false;
+                }
+            }
+        });
     }
 
     /**
@@ -69,9 +132,19 @@ public class RegisterRoute extends javax.swing.JFrame {
 
         departure.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
         departure.setMinimumSize(new java.awt.Dimension(85, 22));
+        departure.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                departureKeyReleased(evt);
+            }
+        });
 
         arrival.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
         arrival.setMinimumSize(new java.awt.Dimension(85, 22));
+        arrival.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                arrivalKeyReleased(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -99,8 +172,18 @@ public class RegisterRoute extends javax.swing.JFrame {
         });
 
         dateOfDeparture.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        dateOfDeparture.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                dateOfDepartureKeyReleased(evt);
+            }
+        });
 
         dateOfArrival.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        dateOfArrival.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                dateOfArrivalKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -212,6 +295,35 @@ public class RegisterRoute extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Veuilliez remplir tous les champs correctements!");
         }
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void departureKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_departureKeyReleased
+        boolean d = Form.Name(departure.getText());
+        if (!d)
+        {
+            JOptionPane.showMessageDialog(this, "Le champs doit être rempli correctement sans chiffre ou des caractères spéciaux et doit contenir au moins deux lettres!");            
+        }
+    }//GEN-LAST:event_departureKeyReleased
+
+    private void arrivalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_arrivalKeyReleased
+        boolean d = Form.Name(arrival.getText());
+        if (!d)
+        {
+            JOptionPane.showMessageDialog(this, "Le champs doit être rempli correctement sans chiffre ou des caractères spéciaux et doit contenir au moins deux lettres!");            
+        }
+    }//GEN-LAST:event_arrivalKeyReleased
+
+    private void dateOfDepartureKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dateOfDepartureKeyReleased
+        /*String dateDeparture = dateOfDeparture.getText();
+        boolean d = Form.Name(dateOfDeparture);
+        if (!d)
+        {
+            JOptionPane.showMessageDialog(this, "Le champs doit être rempli correctement sans chiffre ou des caractères spéciaux et doit contenir au moins deux lettres!");            
+        }*/
+    }//GEN-LAST:event_dateOfDepartureKeyReleased
+
+    private void dateOfArrivalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dateOfArrivalKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateOfArrivalKeyReleased
     
     private void loadEdit()
     {

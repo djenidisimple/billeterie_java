@@ -43,6 +43,9 @@ public class GeneratorPdf {
             String query4 = "SELECT * FROM Route WHERE routeId = " + data.getRoute();
             String arrival = ticket.stringById(query4, "placeOfArrival");
             
+            String query5 = "SELECT * FROM Reservation WHERE resId = " + data.getRoute();
+            String dateLeave = ticket.stringById(query5, "dateLeave");
+            
             doc.add(new Paragraph("Billet de Train " + departure + "-" + arrival));
             doc.add(new Paragraph("Nom : " + name));
             doc.add(new Paragraph("Date de départe : Pas encore fixer!"));

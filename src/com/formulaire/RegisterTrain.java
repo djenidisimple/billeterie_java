@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import com.gestion.GestionTrainByRoute;
 import com.classes.TrainByRoute;
 import com.gestion.GestionPlace;
+import javax.swing.*;
 /**
  *
  * @author Djenidi
@@ -23,6 +24,33 @@ public class RegisterTrain extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE); 
         if(com.gestion.ValuePassed.idTrain > 0)
             loadEdit();
+        
+        name.setInputVerifier(new InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                JTextField tf = (JTextField) input;
+                String text = tf.getText();
+                if (text.length() <= 1 || !Form.Name(text))
+                {
+                    JOptionPane.showMessageDialog(input, "Le champs doit être rempli correctement sans chiffre ou des caractères spéciaux et doit contenir au moins deux lettres!");
+                    return false;
+                }
+                return true; // valide, on laisse passer
+            }
+        });
+        capacity.setInputVerifier(new InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                JTextField tf = (JTextField) input;
+                String text = tf.getText();
+                if (text.length() == 0 || !Form.isNumeric(text))
+                {
+                    JOptionPane.showMessageDialog(input, "Le champs doit être rempli!");
+                    return false;
+                }
+                return true; // valide, on laisse passer
+            }
+        });
     }
 
     /**
@@ -53,8 +81,45 @@ public class RegisterTrain extends javax.swing.JFrame {
         title.setText("Ajout de Train");
 
         name.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        name.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nameFocusLost(evt);
+            }
+        });
+        name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameActionPerformed(evt);
+            }
+        });
+        name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nameKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nameKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nameKeyTyped(evt);
+            }
+        });
 
         capacity.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        capacity.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                capacityFocusLost(evt);
+            }
+        });
+        capacity.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                capacityKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                capacityKeyReleased(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -191,6 +256,51 @@ public class RegisterTrain extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Veuilliez remplir tous les champs!", "", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnValidMouseClicked
+
+    private void nameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameFocusGained
+        
+    }//GEN-LAST:event_nameFocusGained
+
+    private void nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyPressed
+        
+    }//GEN-LAST:event_nameKeyPressed
+
+    private void nameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyTyped
+        
+    }//GEN-LAST:event_nameKeyTyped
+
+    private void capacityKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_capacityKeyPressed
+        
+    }//GEN-LAST:event_capacityKeyPressed
+
+    private void capacityKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_capacityKeyReleased
+        boolean value = Form.isNumeric(capacity.getText());
+        if (!value && capacity.getText().length() > 0)
+        {
+            JOptionPane.showMessageDialog(this, "Le champs ne doit pas contenir de lettre!");
+            capacity.setText("");
+        }
+    }//GEN-LAST:event_capacityKeyReleased
+
+    private void capacityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_capacityFocusLost
+     
+    }//GEN-LAST:event_capacityFocusLost
+
+    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameActionPerformed
+
+    private void nameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameFocusLost
+
+    }//GEN-LAST:event_nameFocusLost
+
+    private void nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyReleased
+        boolean value = Form.Name(name.getText());
+        if (!value)
+        {
+            JOptionPane.showMessageDialog(this, "Un nom ne doit pas contenir de caractère spéciaux!");
+        }
+    }//GEN-LAST:event_nameKeyReleased
 
     /**
      * @param args the command line arguments

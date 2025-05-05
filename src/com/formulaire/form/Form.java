@@ -1,6 +1,5 @@
 package com.formulaire.form;
 import java.sql.*;
-import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.gestion.GestionTrain;
@@ -66,11 +65,24 @@ public class Form {
             return 1;
         }
     }
+    public static boolean Name(String fields)
+    {
+        return fields.matches("^[a-zA-Z \\-\\.\\']*$");
+    }
     public static boolean Email(String email) 
     {
         Pattern p = Pattern.compile("^(?i)[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$", Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(email);
         return m.matches();
+    }
+    public static boolean date(java.util.Date date)
+    {
+        Timestamp dateD = new Timestamp(date.getTime());
+        return (dateD != null) ? true : false;
+    }
+    public static boolean isNumeric(String value)
+    {
+        return value.matches("\\d+(.\\d+)?");
     }
     public static boolean PhoneNumberValid(String phone)
     {
@@ -93,5 +105,9 @@ public class Form {
             System.out.println("Erreur : " + e.getMessage());
             return null;
         }
+    }
+    public static void main(String[] args)
+    {
+        System.out.println("Valeur : " + Form.date(null));
     }
 }

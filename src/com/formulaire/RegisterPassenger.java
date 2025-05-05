@@ -11,6 +11,9 @@ import com.gestion.TrainTicketReferenceGenerator;
 import com.classes.Ticket;
 import java.util.List;
 import java.util.ArrayList;
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
+import javax.swing.JTextField;
 
 /**
  *
@@ -27,6 +30,67 @@ public class RegisterPassenger extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         labelPlace.setText("Place choisi : " + com.gestion.ValuePassed.listToString());
         setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE); 
+        
+        name.setInputVerifier(new InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                JTextField tf = (JTextField) input;
+                String text = tf.getText();
+                if (text.length() <= 1 || !Form.Name(text))
+                {
+                    JOptionPane.showMessageDialog(input, "Le champs doit être rempli correctement sans chiffre ou des caractères spéciaux et doit contenir au moins deux lettres!");
+                    return false;
+                }
+                return true; // valide, on laisse passer
+            }
+        });
+        
+        firstName.setInputVerifier(new InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                JTextField tf = (JTextField) input;
+                String text = tf.getText();
+                if (text.length() <= 1 || !Form.Name(text))
+                {
+                    JOptionPane.showMessageDialog(input, "Le champs doit être rempli correctement sans chiffre ou des caractères spéciaux et doit contenir au moins deux lettres!");
+                    return false;
+                }
+                return true; // valide, on laisse passer
+            }
+        });
+        
+        phone.setInputVerifier(new InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                JTextField tf = (JTextField) input;
+                String text = tf.getText();
+                if (!Form.PhoneNumberValid(text))
+                {
+                    JOptionPane.showMessageDialog(input, "Votre numéro de téléphone n'est pas valide!\nPour un numéro de téléphone valide, voici un exemple +26137XXXXXXX!");
+                    return false;
+                }
+                return true; // valide, on laisse passer
+            }
+        });
+        
+        email.setInputVerifier(new InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                JTextField tf = (JTextField) input;
+                String text = tf.getText();
+                if (!Form.Email(text))
+                {
+                    JOptionPane.showMessageDialog(input, "Votre email est incorecte!\nPour un email correcte voici un exemple example@gmail.com!");
+                    return false;
+                } else if (!GestionPassenger.emailExist(text))
+                {
+                    JOptionPane.showMessageDialog(input, "Cette email existe déjà!\nVeuilliez entrer un autre email!");
+                    return false;
+                }
+                return true; // valide, on laisse passer
+            }
+        });
+        
     }
 
     /**
@@ -60,6 +124,30 @@ public class RegisterPassenger extends javax.swing.JFrame {
         jLabel26.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setText("Réservation de place");
+
+        name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nameKeyReleased(evt);
+            }
+        });
+
+        email.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                emailKeyReleased(evt);
+            }
+        });
+
+        firstName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                firstNameKeyReleased(evt);
+            }
+        });
+
+        phone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                phoneKeyReleased(evt);
+            }
+        });
 
         jLabel27.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
@@ -215,6 +303,38 @@ public class RegisterPassenger extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Votre numéro de téléphone n'est pas valide!\nPour un numéro de téléphone valide, voici un exemple +26137XXXXXXX!");
         }
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyReleased
+        boolean value  = Form.Name(name.getText());
+        if (!value)
+        {
+            JOptionPane.showMessageDialog(this, "Le champs doit être rempli correctement sans chiffre ou des caractères spéciaux et doit contenir au moins deux lettres!");
+        }
+    }//GEN-LAST:event_nameKeyReleased
+
+    private void firstNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_firstNameKeyReleased
+        boolean value = Form.Name(firstName.getText());
+        if (!value)
+        {
+            JOptionPane.showMessageDialog(this, "Le champs doit être rempli correctement sans chiffre ou des caractères spéciaux et doit contenir au moins deux lettres!");
+        }
+    }//GEN-LAST:event_firstNameKeyReleased
+
+    private void phoneKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneKeyReleased
+        boolean value = Form.PhoneNumberValid(phone.getText());
+        if (!value)
+        {
+            JOptionPane.showMessageDialog(this, "Votre numéro de téléphone n'est pas valide!\nPour un numéro de téléphone valide, voici un exemple +26137XXXXXXX!");        
+        }
+    }//GEN-LAST:event_phoneKeyReleased
+
+    private void emailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyReleased
+        boolean emailValid = Form.Email(email.getText());
+        if(!emailValid)
+        {
+            JOptionPane.showMessageDialog(this, "Votre email est incorecte!\nPour un email correcte voici un exemple example@gmail.com!");
+        }
+    }//GEN-LAST:event_emailKeyReleased
 
     /**
      * @param args the command line arguments

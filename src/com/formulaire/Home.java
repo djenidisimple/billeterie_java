@@ -19,7 +19,7 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(920, 541));
         initComponents();
-        loadForm(new Dashboard());
+        loadForm(new Dashboar());
         
         //place.freePlace();
     }
@@ -219,7 +219,7 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnDashboardActionPerformed
-        loadForm(new Dashboard());
+        loadForm(new Dashboar());
     }//GEN-LAST:event_jBtnDashboardActionPerformed
 
     private void jBtnResMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnResMouseClicked
