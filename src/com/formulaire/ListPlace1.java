@@ -50,16 +50,13 @@ public class ListPlace1 extends javax.swing.JPanel {
             jLabel4.setText("Passager");
         }
         contentsPlace2.removeAll();
-        //JScrollPane scrollPane = new JScrollPane(contentsPlace2);
-        //contentsPlace2.add(scrollPane);
-
         
         ResultSet row = place.getPlaceById(com.gestion.ValuePassed.idTrajet, com.gestion.ValuePassed.idTrain);
         
         int line = 0;
         
-        int i = 20, counter = 0, j = 10;
-        int spacingX = 60, spacingY = 60;
+        int i = 95, counter = 0, j = 12;
+        int spacingX = 95, spacingY = 60;
         try
         {
             while (row.next())
@@ -88,14 +85,17 @@ public class ListPlace1 extends javax.swing.JPanel {
                 }
 
 
-                if (line % 10 == 0 && line != 0) { // 4 panels par ligne
+                if (line % 4 == 0 && line != 0) {
                     j += spacingY; // Nouvelle ligne
-                    i = 20; // Réinitialiser X
-                    contentsPlace2.setPreferredSize(new Dimension(100, j + spacingY));
+                    i = 95; // Réinitialiser X
+                    //contentsPlace2.setPreferredSize(new Dimension(100, 350));
                 }
 
 
                 itemPanel.setBounds(i, j, 56, 49); // position du panel
+                if (counter % 2 != 0) {
+                    i += 100;
+                }
                 i += spacingX;
                 SeatData data = new SeatData(
                     row.getInt("placeId"), 
@@ -124,6 +124,14 @@ public class ListPlace1 extends javax.swing.JPanel {
         {
             System.out.println("Erreur : " + e.getMessage());
         }
+        // ScrollPane qui contient le panel des places
+        //jScrollPane1 = new JScrollPane(contentsPlace2);
+        //jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        //jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        //jScrollPane1.getVerticalScrollBar().setUnitIncrement(16); // défilement fluide
+
+        // Ajout du scrollPane au centre du panel principal
+        //add(jScrollPane1, BorderLayout.CENTER);
     }
     
     public class CustomColors {
@@ -214,6 +222,7 @@ public class ListPlace1 extends javax.swing.JPanel {
         prev = new javax.swing.JButton();
         jBtnRes = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         labelPlace = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -232,6 +241,7 @@ public class ListPlace1 extends javax.swing.JPanel {
 
         nbPass.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
         nbPass.setForeground(new java.awt.Color(0, 0, 0));
+        nbPass.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nbPass.setText("50");
 
         jLabel4.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 24)); // NOI18N
@@ -274,6 +284,8 @@ public class ListPlace1 extends javax.swing.JPanel {
         jButton1.setForeground(getForeground());
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/annuler.png"))); // NOI18N
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/multiple-users-silhouette.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -281,11 +293,13 @@ public class ListPlace1 extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(nameTrain)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
-                .addComponent(nbPass)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                .addComponent(nbPass, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addGap(121, 121, 121)
+                .addGap(100, 100, 100)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(prev, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,43 +311,38 @@ public class ListPlace1 extends javax.swing.JPanel {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnRes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(prev, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(nameTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(nbPass, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnRes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(prev, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(nameTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(nbPass, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         labelPlace.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 18)); // NOI18N
         labelPlace.setForeground(new java.awt.Color(0, 0, 0));
         labelPlace.setText("Place choisi :");
 
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(580, 230));
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         contentsPlace2.setBackground(new java.awt.Color(255, 255, 255));
         contentsPlace2.setAutoscrolls(true);
-        contentsPlace2.setPreferredSize(new java.awt.Dimension(580, 230));
-
-        javax.swing.GroupLayout contentsPlace2Layout = new javax.swing.GroupLayout(contentsPlace2);
-        contentsPlace2.setLayout(contentsPlace2Layout);
-        contentsPlace2Layout.setHorizontalGroup(
-            contentsPlace2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
-        );
-        contentsPlace2Layout.setVerticalGroup(
-            contentsPlace2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 230, Short.MAX_VALUE)
-        );
-
+        contentsPlace2.setPreferredSize(new java.awt.Dimension(623, 370));
+        contentsPlace2.setLayout(null);
         jScrollPane1.setViewportView(contentsPlace2);
 
         jPanel2.add(jScrollPane1, new java.awt.GridBagConstraints());
@@ -342,14 +351,12 @@ public class ListPlace1 extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(labelPlace, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelPlace, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(38, 38, 38))
         );
         jPanel1Layout.setVerticalGroup(
@@ -357,15 +364,26 @@ public class ListPlace1 extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                .addGap(98, 98, 98)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelPlace)
-                .addGap(34, 34, 34))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnResMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnResMouseClicked
+        if(ValuePassed.place.size() == 0)
+        {
+            JOptionPane.showMessageDialog(this, "Veuilliez choisir une place!");
+        }
+        else
+        {
+            new RegisterPassenger().setVisible(true);
+        }
+    }//GEN-LAST:event_jBtnResMouseClicked
 
     private void prevjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevjButton3ActionPerformed
         if(evt.getSource() == prev) {
@@ -404,23 +422,13 @@ public class ListPlace1 extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnExportMouseClicked
 
-    private void jBtnResMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnResMouseClicked
-        if(ValuePassed.place.size() == 0)
-        {
-            JOptionPane.showMessageDialog(this, "Veuilliez choisir une place!");
-        }
-        else
-        {
-            new RegisterPassenger().setVisible(true);
-        }
-    }//GEN-LAST:event_jBtnResMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contentsPlace2;
     private javax.swing.JButton jBtnExport;
     private javax.swing.JButton jBtnRes;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -231,7 +231,6 @@ public class ListRoute extends javax.swing.JPanel {
         jBtnAdd2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/icon/icone-plus (1).png"))); // NOI18N
         jBtnAdd2.setMaximumSize(new java.awt.Dimension(106, 38));
         jBtnAdd2.setMinimumSize(new java.awt.Dimension(106, 38));
-        jBtnAdd2.setPreferredSize(new java.awt.Dimension(22, 23));
         jBtnAdd2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBtnAdd2MouseClicked(evt);

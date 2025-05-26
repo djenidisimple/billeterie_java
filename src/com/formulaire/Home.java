@@ -31,6 +31,7 @@ public class Home extends javax.swing.JFrame implements com.gestion.PanelEventLi
         contents.revalidate(); // Actualiser l'affichage
         contents.repaint();
         setVisible(true);
+        
     }
     /**
      * @param p the page of window form or JPanel
